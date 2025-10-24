@@ -5,12 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const view = new View();
     model.setView(view);
     view.setModel(model);
-})
 
-function test(num , fn){
-    return f(num)
-}
-
-function dup(num, fn) {
-    return fn(num * 2);
-}
+    view.render();
+});
