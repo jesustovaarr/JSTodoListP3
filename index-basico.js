@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const table = document.getElementById('table');
     const alert = document.getElementById('alert');
     const btn = document.getElementById('add');
-    let id = 0; // Se inicializa un contador para los IDs únicos de las filas
+    let id = 1; // Se inicializa un contador para los IDs únicos de las filas
 
     /**
      * Función para eliminar una tarea de la tabla.
@@ -13,10 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
      */
     function removeTodo(id) {
         // Busca el elemento por su ID y lo elimina del DOM
-        const rowToRemove = document.getElementById(id);
-        if (rowToRemove) {
-            rowToRemove.remove();
-        }
+        document.getElementById(id).remove();
     }
 
     // Función para añadir una nueva tarea
@@ -55,19 +52,13 @@ document.addEventListener('DOMContentLoaded', function () {
         removeBtn.classList.add('btn', 'btn-danger', 'mb-1', 'ml-1'); // Se añade margen a la izquierda
         removeBtn.innerHTML = '<i class="fa fa-trash"></i>';
 
+        // Asigna el evento onclick al botón de eliminar
+        removeBtn.onclick = function(e) {
+            removeTodo(row.getAttribute('id'));
+        }
         // Añade el botón a la última celda (la de acciones)
         row.children[3].appendChild(removeBtn);
-
-        // Asigna el evento onclick al botón de eliminar
-        removeBtn.onclick = function() {
-            removeTodo(row.getAttribute('id'));
-        };
-
-        // Limpia los campos del formulario para la siguiente entrada
-        title.value = '';
-        description.value = '';
     }
-
     // Asigna la función addTodo al evento click del botón principal
     btn.onclick = addTodo;
 });
