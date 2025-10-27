@@ -4,12 +4,10 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Fontawesome -->
   <link
     href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     rel="stylesheet"
   />
-  <!-- Bootswatch Darkly Theme -->
   <link
     href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/darkly/bootstrap.min.css"
     rel="stylesheet"
@@ -17,8 +15,6 @@
   <title>JS Todo List</title>
 </head>
 <body>
-  <!-- Navbar -->
-
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">JS Todo List</a>
     <button
@@ -41,31 +37,9 @@
           </a>
         </li>
       </ul>
-      <!-- <form class="form-inline my-2 my-lg-0" id="filters">
-        <label class="font-weight-bold text-info mr-3">Filters</label>
-        <input type="radio" name="type" value="all" class="mx-1">
-        <label for="male" class="mb-0">All</label>
-        <input type="radio" name="type" value="completed" class="mx-1">
-        <label for="female" class="mb-0">Completed</label>
-        <input type="radio" name="type" value="uncompleted" class="mx-1">
-        <label for="other" class="mr-2 mb-0">Uncompleted</label> 
-
-        <input
-          class="form-control mr-sm-2"
-          type="search"
-          name="words"
-          placeholder="Words"
-          aria-label="Search"
-        >
-        <button class="btn btn-outline-info my-2 my-sm-0" type="submit" id="search">
-          Search
-        </button>
-      </form> -->
     </div>
   </nav>
 
-  <!-- Modal -->
-  
   <div
     class="modal fade"
     id="modal"
@@ -113,9 +87,9 @@
               <label>Completed</label>
               <div class="mt-1 ml-2">
                 <input
-                id="modal-completed"
-                type="checkbox"
-              />
+                  id="modal-completed"
+                  type="checkbox"
+                />
               </div>
             </div>
           </form>
@@ -137,8 +111,6 @@
       <div class="alert alert-danger d-none" role="alert" id="alert">
         A simple danger alert—check it out!
       </div>
-
-      <!-- Add Todo -->
 
       <div>
         <form> 
@@ -170,8 +142,14 @@
         </form>
       </div>
 
-      <!-- Table -->
-
+      <div class="mt-3 mb-3">
+        <input
+          type="text"
+          id="filter"
+          class="form-control"
+          placeholder="Filtrar tareas por título o descripción..."
+        />
+      </div>
       <div class="mt-5">
         <table class="table table-striped" id="table">
           <thead>
@@ -187,22 +165,18 @@
             </tr>
           </thead>
           <tbody>
-           <!-- Content generated with JS -->
-          </tbody>
+            </tbody>
         </table>
       </div>
     </div>
   </main>
 
-  <!-- JQuery -->
   <script
     src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
     crossorigin="anonymous"
   ></script>
-  <!-- Bootstrap -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-  <!-- JS Code -->
-   <script src = "./js/index.js" type="module"></script>
+  <script src = "./js/index.js" type="module"></script>
 </body>
 </html>
