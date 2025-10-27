@@ -1,4 +1,3 @@
-// model.js
 export default class Model {
     constructor() {
         this.view = null;
@@ -56,6 +55,7 @@ export default class Model {
         }
         
         this.todos.push(todo);
+        console.log(this.todos);
         this.save();
         return {...todo};
     }
@@ -64,14 +64,5 @@ export default class Model {
         const index = this.findTodo(id);
         this.todos.splice(index, 1);
         this.save();
-    }
-    
-    // MÉTODO NUEVO PARA FILTRAR
-    filterTodos(searchText) {
-        return this.todos.filter((todo) => {
-            const titleMatch = todo.title.toLowerCase().includes(searchText.toLowerCase());
-            const descriptionMatch = todo.description.toLowerCase().includes(searchText.toLowerCase());
-            return titleMatch || descriptionMatch;
-        });
     }
 }
