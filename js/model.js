@@ -2,76 +2,56 @@
 export default class Model {
     constructor() {
         this.view = null;
-        this.todos = JSON.parse(localStorage.getItem('todos'));
-        if (!this.todos || this.todos.length < 1) {
-            this.todos = [
-                {
-                    id: 0,
-                    title: 'Learn JS',
-                    description: 'Watch JS tutorials',
-                    completed: false,
-                }
-            ]
-            this.currentId = 1;
-        } else {
-            this.currentId = this.todos[this.todos.length - 1].id + 1;
-        }
+        this.apiUrl = 'http://localhost:3000/api/todos'; // Cambia por tu ruta real
     }
 
     setView(view) {
         this.view = view;
     }
 
-    save(){
-        localStorage.setItem('todos', JSON.stringify(this.todos)); 
+    async getTodos() {
+        const response = await fetch(this.apiUrl);
+        const todos = await response.json();
+        return todos;
     }
 
-    getTodos() {
-        return this.todos;
-    }
-
-    findTodo(id){
-        return this.todos.findIndex((todo) => todo.id === id);
-    }
-
-    toggleCompleted(id) {
-        const index = this.findTodo(id);
-        const todo = this.todos[index];
-        todo.completed = !todo.completed;
-        this.save();
-    }
-
-    editTodo(id, values) {
-        const index = this.findTodo(id);
-        Object.assign(this.todos[index], values);
-        this.save();
-    }
-
-    addTodo(title, description){
-        const todo ={
-            id: this.currentId++,
-            title,
-            description,
-            completed: false,
-        }
-        
-        this.todos.push(todo);
-        this.save();
-        return {...todo};
-    }
-
-    removeTodo(id) {
-        const index = this.findTodo(id);
-        this.todos.splice(index, 1);
-        this.save();
-    }
-    
-    // MÉTODO NUEVO PARA FILTRAR
-    filterTodos(searchText) {
-        return this.todos.filter((todo) => {
-            const titleMatch = todo.title.toLowerCase().includes(searchText.toLowerCase());
-            const descriptionMatch = todo.description.toLowerCase().includes(searchText.toLowerCase());
-            return titleMatch || descriptionMatch;
+    async addTodo(title, description) {
+        const response = await fetch(this.apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, description, completed: false })
         });
+        const newTodo = await response.json();
+        return newTodo;
+    }
+
+    async removeTodo(id) {
+        await fetch(`${this.apiUrl}/${id}`, { method: 'DELETE' });
+    }
+
+    async editTodo(id, values) {
+        const response = await fetch(`${this.apiUrl}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(values)
+        });
+        const updatedTodo = await response.json();
+        return updatedTodo;
+    }
+
+    async toggleCompleted(id) {
+        const todos = await this.getTodos();
+        const todo = todos.find(t => t.id === id);
+        if (!todo) return;
+        todo.completed = !todo.completed;
+        await this.editTodo(id, todo);
+    }
+
+    async filterTodos(searchText) {
+        const todos = await this.getTodos();
+        return todos.filter(todo =>
+            todo.title.toLowerCase().includes(searchText.toLowerCase()) ||
+            todo.description.toLowerCase().includes(searchText.toLowerCase())
+        );
     }
 }
