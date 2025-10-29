@@ -2,7 +2,7 @@
 export default class Model {
     constructor() {
         this.view = null;
-        this.apiUrl = 'http://localhost:3000/api/todos'; // Cambia por tu ruta real
+        this.apiUrl = 'https://mi-api-todo-list.onrender.com/api/todos'; // Cambia por tu ruta real
     }
 
     setView(view) {
